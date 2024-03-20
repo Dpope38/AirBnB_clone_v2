@@ -20,13 +20,22 @@ class FileStorage:
         Returns:
             dict: A dictionary containing objects in storage.
         """
-        if cls:
-            if isinstance(cls, str):
-                cls = globals().get(cls)
-            if cls and issubclass(cls, BaseModel):
-                 cls_dict = {k: v for k, v in self.__objects.items() if isinstance(v, cls)}
-                 return cls_dict
-        return FileStorage.__objects
+        # if cls:
+        #     if isinstance(cls, str):
+        #         cls = globals().get(cls)
+        #     if cls and issubclass(cls, BaseModel):
+        #          cls_dict = {k: v for k, v in self.__objects.items() if isinstance(v, cls)}
+        #          return cls_dict
+        # return self.__objects
+        if cls is not None:
+            if type(cls) is str:
+                cls = eval(cls)
+            cls_dict = {}
+            for k, v in self.__objects.items():
+                if type(v) == cls: #Here if the '==' does not do the comparison, then use is
+                    cls_dict[k] = v
+            return cls_dict
+        return self.__objects
 
 
 
@@ -77,9 +86,8 @@ class FileStorage:
                 return
             obj_to_del = f"{obj.__class__.__name__}.{obj.id}"
             try:
-                del FileStorage.__objects[obj_to_del]
+                del self.__objects[obj_to_del]
             except AttributeError:
                 pass
             except KeyboardInterrupt:
                 pass
-            
