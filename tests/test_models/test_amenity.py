@@ -11,7 +11,7 @@ class test_Amenity(test_basemodel):
         """ """
         super().__init__(*args, **kwargs)
         self.name = "Amenity"
-        self.value = Amenity
+        self.value = Amenity()
 
     def test_name2(self):
         """ """
