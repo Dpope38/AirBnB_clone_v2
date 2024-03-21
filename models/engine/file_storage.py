@@ -4,7 +4,6 @@ import json
 from models.base_model import BaseModel
 
 
-
 class FileStorage:
     """This class manages storage of hbnb models in JSON format"""
     __file_path = 'file.json'
@@ -24,7 +23,8 @@ class FileStorage:
         #     if isinstance(cls, str):
         #         cls = globals().get(cls)
         #     if cls and issubclass(cls, BaseModel):
-        #          cls_dict = {k: v for k, v in self.__objects.items() if isinstance(v, cls)}
+        #          cls_dict = {k: v for k, v in self.__objects.items() if
+        #          isinstance(v, cls)}
         #          return cls_dict
         # return self.__objects
         if cls is not None:
@@ -32,7 +32,7 @@ class FileStorage:
                 cls = eval(cls)
             cls_dict = {}
             for k, v in self.__objects.items():
-                if type(v) == cls: #Here if the '==' does not do the comparison, then use is
+                if type(v) == cls:  # Here if the '==' does not do the comparison, then use is
                     cls_dict[k] = v
             return cls_dict
         return self.__objects
@@ -77,7 +77,6 @@ class FileStorage:
         except FileNotFoundError:
             pass
 
-        
         def delete(self, obj=None):
             """
             Delete obj from __objects if it’s inside - if obj is equal to None,the method should not do anything
@@ -89,5 +88,5 @@ class FileStorage:
                 del self.__objects[obj_to_del]
             except AttributeError:
                 pass
-            except KeyboardInterrupt:
+            except KeyboardInterupt:
                 pass
